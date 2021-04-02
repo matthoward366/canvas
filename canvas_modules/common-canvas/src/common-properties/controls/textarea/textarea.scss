@@ -15,22 +15,19 @@
  */
 
 .properties-textarea {
-	.bx--form-item { // carbon overrides
-		margin-right: 0;
-		margin-bottom: 0;
-	}
-
 	&.hide {
 		display: none;
 	}
-	&.error {
-		textarea:not([disabled]) {
-			box-shadow: 0 2px 0 0 $support-01;
-		}
-	}
 	&.warning {
-		textarea:not([disabled]) {
-			box-shadow: 0 2px 0 0 $support-03;
+		.bx--text-area__invalid-icon {
+			display: none;
+		}
+		.bx--form-requirement[role='alert'] {
+			color: unset;
+		}
+		textarea.bx--text-area--invalid:not(:focus):not([disabled]) {
+			outline: 2px solid $support-03;
+			outline-offset: -2px;
 		}
 	}
 }

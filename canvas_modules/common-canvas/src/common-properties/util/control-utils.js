@@ -94,11 +94,26 @@ function truncateDisplayValue(value) {
 	return value;
 }
 
+function getErrorMessageProps(messageInfo, tableControl) {
+	const props = {};
+	if (messageInfo && !tableControl) {
+		if (messageInfo.type === "warning") {
+			props.warn = true;
+			props.warnText = messageInfo.text;
+		} else if (messageInfo.type === "error") {
+			props.invalid = true;
+			props.invalidText = messageInfo.text;
+		}
+	}
+	return props;
+}
+
 export {
 	getCharLimit,
 	getControlId,
 	getDataId,
 	splitNewlines,
 	joinNewlines,
-	truncateDisplayValue
+	truncateDisplayValue,
+	getErrorMessageProps
 };

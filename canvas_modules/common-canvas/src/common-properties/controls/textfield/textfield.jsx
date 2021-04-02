@@ -73,6 +73,7 @@ class TextfieldControl extends React.Component {
 		const className = classNames("properties-textfield", "properties-input-control", { "hide": this.props.state === STATES.HIDDEN },
 			this.props.messageInfo ? this.props.messageInfo.type : null);
 
+		const messageProps = ControlUtils.getErrorMessageProps(this.props.messageInfo, this.props.tableControl);
 		let textInput = null;
 		if (truncated) {
 			const errorMessage = {
@@ -101,6 +102,8 @@ class TextfieldControl extends React.Component {
 				labelText={this.props.controlItem}
 				hideLabel={this.props.tableControl}
 				light
+				size={this.props.tableControl ? "sm" : null }
+				{...messageProps}
 			/>);
 		}
 
@@ -130,7 +133,7 @@ class TextfieldControl extends React.Component {
 		return (
 			<div className={className} data-id={ControlUtils.getDataId(this.props.propertyId)}>
 				{display}
-				<ValidationMessage inTable={this.props.tableControl} state={ this.props.state} messageInfo={ this.props.messageInfo} />
+				<ValidationMessage inTable={this.props.tableControl} state={ this.props.state} messageInfo={ this.props.messageInfo} hide={!this.props.tableControl} />
 			</div>
 		);
 	}

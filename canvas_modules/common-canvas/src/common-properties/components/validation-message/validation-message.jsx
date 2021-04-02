@@ -46,7 +46,7 @@ export default class ValidationMessage extends React.Component {
 			</div>)
 			: icon;
 		const className = classNames("properties-validation-message",
-			{ "hide": this.props.state === STATES.HIDDEN || this.props.state === STATES.DISABLED, "inTable": this.props.inTable });
+			{ "hide": this.props.state === STATES.HIDDEN || this.props.state === STATES.DISABLED || this.props.hide, "inTable": this.props.inTable });
 		return (
 			<div className={className}>
 				{msgIcon}
@@ -61,5 +61,6 @@ ValidationMessage.propTypes = {
 		type: PropTypes.string
 	}),
 	state: PropTypes.string,
-	inTable: PropTypes.bool
+	inTable: PropTypes.bool,
+	hide: PropTypes.bool
 };

@@ -18,7 +18,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { TextArea } from "carbon-components-react";
-import ValidationMessage from "./../../components/validation-message";
 import * as ControlUtils from "./../../util/control-utils";
 import { formatMessage } from "./../../util/property-utils";
 import { STATES } from "./../../constants/constants.js";
@@ -70,10 +69,15 @@ class TextareaControl extends React.Component {
 					labelText={this.props.controlItem}
 					hideLabel={this.props.tableControl}
 					light
+					{...ControlUtils.getErrorMessageProps(errorMessage)}
 				/>
-				<ValidationMessage inTable={this.props.tableControl} state={""} messageInfo={errorMessage} />
 			</div>);
 		} else {
+			const messageProps = ControlUtils.getErrorMessageProps(this.props.messageInfo);
+			if (messageProps.warn) { // carbon doesn't support warn for textarea yet
+				messageProps.invalid = messageProps.warn;
+				messageProps.invalidText = messageProps.warnText;
+			}
 			textArea = (<TextArea
 				id={this.id}
 				disabled={this.props.state === STATES.DISABLED}
@@ -83,6 +87,7 @@ class TextareaControl extends React.Component {
 				labelText={this.props.controlItem}
 				hideLabel={this.props.tableControl}
 				light
+				{...messageProps}
 			/>);
 		}
 
@@ -113,7 +118,6 @@ class TextareaControl extends React.Component {
 		return (
 			<div className={className} data-id={ControlUtils.getDataId(this.props.propertyId)}>
 				{display}
-				<ValidationMessage inTable={this.props.tableControl} state={this.props.state} messageInfo={this.props.messageInfo} />
 			</div>
 
 		);
